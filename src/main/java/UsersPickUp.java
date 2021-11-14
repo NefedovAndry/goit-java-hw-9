@@ -31,19 +31,20 @@ public class UsersPickUp {
     public static void main(String[] args) throws IOException {
         String filePath = "src/main/resources/file_hw9_2.txt";
         String jsonFilePath = "src/main/resources/jsonFile_hw9_2.json";
-        File file = new File(filePath);
-        if (!file.exists()) {
-            throw new FileNotFoundException("File not found!");
-        }
-        String[] linesArray = readLinesFromFile(file);
         ArrayList<User> users = new ArrayList<>();
+
+        String[] linesArray = readLinesFromFile(filePath);
         if (linesArray != null) {
             createUsers(users, linesArray);
         }
         createJson(users, jsonFilePath);
     }
 
-    public static String[] readLinesFromFile(File file) throws IOException {
+    public static String[] readLinesFromFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            throw new FileNotFoundException("File not found!");
+        }
         try (FileReader inputStream = new FileReader(file)) {
             char[] buffer = new char[1024];
             int fileLength = inputStream.read(buffer, 0, 1024);
