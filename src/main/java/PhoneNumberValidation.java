@@ -27,6 +27,11 @@ public class PhoneNumberValidation {
 
     private static void logging(String message) throws IOException {
         PrintWriter logging = new PrintWriter(new FileWriter(PhoneNumberValidation.LOG_FILE_PATH));
+        logging.println("OS: " + System.getProperty("os.name"));
+        logging.println("Java version: " + System.getProperty("java.version"));
+        logging.println("File separator: " + System.getProperty("file.separator"));
+        logging.println("User home directory: " + System.getProperty("user.home"));
+        logging.println();
         logging.println(message);
         logging.flush();
         logging.close();
@@ -35,7 +40,7 @@ public class PhoneNumberValidation {
     public static void printValidatedPhoneNumbers(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
-            throw new IOException("File in path \"" + file.getPath() + "\" not found!");
+            throw new IOException("File \"" + file.getName() + "\" in path \"" + file.getParent() + "\" not found!");
         }
         String[] inputStringArray = readFromFile(file);
         String[] phoneNumbersArray = getPhoneNumbers(inputStringArray);
