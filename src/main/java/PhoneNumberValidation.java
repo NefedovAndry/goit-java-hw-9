@@ -1,29 +1,41 @@
-package module_9;
-
 /*Дан текстовый файл file_hw9_1.txt, который содержит список номеров телефонов (один на линии).
 Необходимо написать метод, который будет считывать файл и выводить в консоль все валидные номера телефонов.
 
 Предполагаем, что "валидный" номер телефона - это строка в одном из двух форматов: (xxx) xxx-xxxx или xxx-xxx-xxxx
 (х обозначает цифру).*/
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PhoneNumberValidation {
 
+    public static final int ONE_KILOBYTE = 1024;
+    public static final String LOG_FILE_PATH = "src/main/resources/log_file_hw9_1.txt";
+
     public static void main(String[] args) throws IOException {
-        String filePath = "src/main/resources/file_hw9_1.txt";
-        printValidatedPhoneNumbers(filePath);
+        try {
+            String filePath = "src/main/resources/file_hw9_1.txt";
+            printValidatedPhoneNumbers(filePath);
+            logging("Success!");
+        } catch (IOException e) {
+            logging(e.getMessage() + "\r\n" + Arrays.toString(e.getStackTrace()));
+            System.err.println(e.getMessage());
+            System.err.println(Arrays.toString(e.getStackTrace()));
+        }
+    }
+
+    private static void logging(String message) throws IOException {
+        PrintWriter logging = new PrintWriter(new FileWriter(PhoneNumberValidation.LOG_FILE_PATH));
+        logging.println(message);
+        logging.flush();
+        logging.close();
     }
 
     public static void printValidatedPhoneNumbers(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
-            throw new FileNotFoundException("File not found!");
+            throw new IOException("File in path \"" + file.getPath() + "\" not found!");
         }
         String[] inputStringArray = readFromFile(file);
         String[] phoneNumbersArray = getPhoneNumbers(inputStringArray);
@@ -33,8 +45,8 @@ public class PhoneNumberValidation {
 
     public static String[] readFromFile(File file) throws IOException {
         try (FileReader inputStream = new FileReader(file)) {
-            char[] buffer = new char[1024];
-            int fileLength = inputStream.read(buffer, 0, 1024);
+            char[] buffer = new char[ONE_KILOBYTE];
+            int fileLength = inputStream.read(buffer, 0, ONE_KILOBYTE);
             String bufferString = (new String(buffer, 0, fileLength)).strip();
             return bufferString.split("\\r\\n");
         } catch (IOException e) {
