@@ -41,6 +41,7 @@ public class UsersPickUp {
             ArrayList<User> users = new ArrayList<>();
             String[] linesArray = readLinesFromFile(filePath);
             createUsers(users, linesArray);
+            System.out.println(users);
             createJson(users, jsonFilePath);
             logging("Success!");
         } catch (IOException | RuntimeException e) {
@@ -75,7 +76,10 @@ public class UsersPickUp {
             int fileLength = inputStream.read(buffer, 0, ONE_KILOBYTE);
             String bufferString = (new String(buffer, 0, fileLength)).strip();
             return bufferString.split("\\r\\n");
+        } catch (IOException e) {
+            e.getStackTrace();
         }
+        return null;
     }
 
     public static void createUsers(ArrayList<User> users, String[] linesArray) throws RuntimeException {
@@ -97,6 +101,8 @@ public class UsersPickUp {
         String outputString = gson.toJson(users);
         try (FileWriter output = new FileWriter(jsonFilePath)) {
             output.write(outputString);
+        } catch (IOException e) {
+            e.getStackTrace();
         }
     }
 }
