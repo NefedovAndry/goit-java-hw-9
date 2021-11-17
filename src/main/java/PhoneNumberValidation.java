@@ -52,7 +52,7 @@ public class PhoneNumberValidation {
         System.out.println(Arrays.toString(validatedPhoneNumbers));
     }
 
-    public static String[] readFromFile(File file) throws IOException {
+    public static String[] readFromFile(File file) {
         try (FileReader inputStream = new FileReader(file)) {
             char[] buffer = new char[ONE_KILOBYTE];
             int fileLength = inputStream.read(buffer, 0, ONE_KILOBYTE);

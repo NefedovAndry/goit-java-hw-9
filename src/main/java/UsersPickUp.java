@@ -99,7 +99,6 @@ public class UsersPickUp {
     }
 
     public static void createJson(ArrayList<User> users, String jsonFilePath) throws IOException {
-//        Gson gson = new Gson();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String outputString = gson.toJson(users);
         try (FileWriter output = new FileWriter(jsonFilePath)) {
