@@ -4,5 +4,7 @@ File separator: \
 User home directory: C:\Users\Andry
 User current working directory: C:\Users\Andry\IdeaProjects\goit-java-hw-9
 User OS encoding: UTF-8
+Line separator: 
+
 
 Success!

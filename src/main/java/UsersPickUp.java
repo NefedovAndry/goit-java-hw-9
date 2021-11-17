@@ -24,6 +24,7 @@ ryan 30
 */
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class UsersPickUp {
 
     public static final int ONE_KILOBYTE = 1024;
     public static final String LOG_FILE_PATH = "src/main/resources/log_file_hw9_2.txt";
+    public static final String LINE_SEPARATOR = System.lineSeparator();
 
     public static void main(String[] args) throws IOException {
         try {
@@ -45,7 +47,7 @@ public class UsersPickUp {
             createJson(users, jsonFilePath);
             logging("Success!");
         } catch (IOException | RuntimeException e) {
-            logging(e.getMessage() + "\r\n" + Arrays.toString(e.getStackTrace()));
+            logging(e.getMessage() + LINE_SEPARATOR + Arrays.toString(e.getStackTrace()));
             System.err.println(e.getMessage());
             System.err.println(Arrays.toString(e.getStackTrace()));
         }
@@ -75,7 +77,7 @@ public class UsersPickUp {
             char[] buffer = new char[ONE_KILOBYTE];
             int fileLength = inputStream.read(buffer, 0, ONE_KILOBYTE);
             String bufferString = (new String(buffer, 0, fileLength)).strip();
-            return bufferString.split("\\r\\n");
+            return bufferString.split(LINE_SEPARATOR);
         } catch (IOException e) {
             e.getStackTrace();
         }
@@ -97,7 +99,8 @@ public class UsersPickUp {
     }
 
     public static void createJson(ArrayList<User> users, String jsonFilePath) throws IOException {
-        Gson gson = new Gson();
+//        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String outputString = gson.toJson(users);
         try (FileWriter output = new FileWriter(jsonFilePath)) {
             output.write(outputString);

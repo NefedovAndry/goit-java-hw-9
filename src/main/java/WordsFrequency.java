@@ -38,6 +38,7 @@ public class WordsFrequency {
 
     public static final int ONE_KILOBYTE = 1024;
     public static final String LOG_FILE_PATH = "src/main/resources/log_file_hw9_3.txt";
+    public static final String LINE_SEPARATOR = System.lineSeparator();
 
     public static void main(String[] args) throws IOException {
         try {
@@ -45,7 +46,7 @@ public class WordsFrequency {
             printWordsFrequency(filePath);
             logging("Success!");
         } catch (IOException e) {
-            logging(e.getMessage() + "\r\n" + Arrays.toString(e.getStackTrace()));
+            logging(e.getMessage() + LINE_SEPARATOR + Arrays.toString(e.getStackTrace()));
             System.err.println(e.getMessage());
             System.err.println(Arrays.toString(e.getStackTrace()));
         }

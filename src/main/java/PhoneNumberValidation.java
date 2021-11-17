@@ -12,6 +12,7 @@ public class PhoneNumberValidation {
 
     public static final int ONE_KILOBYTE = 1024;
     public static final String LOG_FILE_PATH = "src/main/resources/log_file_hw9_1.txt";
+    public static final String LINE_SEPARATOR = System.lineSeparator();
 
     public static void main(String[] args) throws IOException {
         try {
@@ -19,7 +20,7 @@ public class PhoneNumberValidation {
             printValidatedPhoneNumbers(filePath);
             logging("Success!");
         } catch (IOException e) {
-            logging(e.getMessage() + "\r\n" + Arrays.toString(e.getStackTrace()));
+            logging(e.getMessage() + LINE_SEPARATOR + Arrays.toString(e.getStackTrace()));
             System.err.println(e.getMessage());
             System.err.println(Arrays.toString(e.getStackTrace()));
         }
@@ -33,6 +34,7 @@ public class PhoneNumberValidation {
         logging.println("User home directory: " + System.getProperty("user.home"));
         logging.println("User current working directory: " + System.getProperty("user.dir"));
         logging.println("User OS encoding: " + System.getProperty("file.encoding"));
+        logging.println("Line separator: " + System.getProperty("line.separator"));
         logging.println();
         logging.println(message);
         logging.flush();
@@ -55,7 +57,7 @@ public class PhoneNumberValidation {
             char[] buffer = new char[ONE_KILOBYTE];
             int fileLength = inputStream.read(buffer, 0, ONE_KILOBYTE);
             String bufferString = (new String(buffer, 0, fileLength)).strip();
-            return bufferString.split("\\r\\n");
+            return bufferString.split(LINE_SEPARATOR);
         } catch (IOException e) {
             e.getStackTrace();
         }
