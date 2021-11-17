@@ -2,5 +2,6 @@ OS: Windows 10
 Java version: 11.0.11
 File separator: \
 User home directory: C:\Users\Andry
+User current working directory: C:\Users\Andry\IdeaProjects\goit-java-hw-9
 
 Success!

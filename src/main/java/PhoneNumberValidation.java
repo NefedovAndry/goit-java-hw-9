@@ -26,11 +26,13 @@ public class PhoneNumberValidation {
     }
 
     private static void logging(String message) throws IOException {
-        PrintWriter logging = new PrintWriter(new FileWriter(PhoneNumberValidation.LOG_FILE_PATH));
+        PrintWriter logging = new PrintWriter(new FileWriter(LOG_FILE_PATH));
         logging.println("OS: " + System.getProperty("os.name"));
         logging.println("Java version: " + System.getProperty("java.version"));
         logging.println("File separator: " + System.getProperty("file.separator"));
         logging.println("User home directory: " + System.getProperty("user.home"));
+        logging.println("User current working directory: " + System.getProperty("user.dir"));
+        logging.println("User OS encoding: " + System.getProperty("file.encoding"));
         logging.println();
         logging.println(message);
         logging.flush();
