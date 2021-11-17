@@ -52,7 +52,7 @@ public class UsersPickUp {
     }
 
     private static void logging(String message) throws IOException {
-        PrintWriter logging = new PrintWriter(new FileWriter(PhoneNumberValidation.LOG_FILE_PATH));
+        PrintWriter logging = new PrintWriter(new FileWriter(LOG_FILE_PATH));
         logging.println("OS: " + System.getProperty("os.name"));
         logging.println("Java version: " + System.getProperty("java.version"));
         logging.println("File separator: " + System.getProperty("file.separator"));
